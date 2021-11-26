@@ -4,7 +4,7 @@ import speech_recognition as sr
 import wikipedia as wk
 import webbrowser as wb
 import os
-
+import Stopwatch
 
 engine = pyttsx3.init('sapi5')  # sapi is a speech api by microsoft
 voices = engine.getProperty('voices') # gets the voices in which our computer will speak
@@ -29,7 +29,6 @@ def wishMe():
 # this function is used to take command from the user
 def takeCommand():
     #It takes microphone input from user and returns string output
-    speak("How may I help You?") 
     r = sr.Recognizer()
     with sr.Microphone() as source :  
         print("Listening Sir...")
@@ -52,15 +51,16 @@ if __name__=="__main__":
    
     # logic for executing tasks based on queries
     while True:
+        speak("How may I help You?") 
         query = takeCommand().lower()
-
+        #logic
         if 'wikipedia' in query:
             speak('Searching wikipedia')
             query = query.replace("wikipedia","")
             results  = wk.summary(query,sentences =2)
             speak("According to wikipedia")
             speak(results)
-
+        
         elif 'youtube' in query:
             wb.open("youtube.com")
 
@@ -70,10 +70,12 @@ if __name__=="__main__":
         elif 'open code' in query:
             VSpath = "C:\\Users\\gomci\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
             os.startfile(VSpath)
-        
         elif 'quit' in query:
             speak("I AM DYING")
             break
+        elif 'start stopwatch' in query:
+            Stopwatch.start()
+
 
         
             
