@@ -1,4 +1,5 @@
 import pyttsx3
+import youtube_search as yt
 import datetime
 import speech_recognition as sr
 import wikipedia as wk
@@ -9,7 +10,6 @@ import Stopwatch
 engine = pyttsx3.init('sapi5')  # sapi is a speech api by microsoft
 voices = engine.getProperty('voices') # gets the voices in which our computer will speak
 engine.setProperty('voice',voices[1].id)
-
 
 def speak(audio): #this function is used to speak "audio"
     engine.say(audio)
@@ -24,7 +24,7 @@ def wishMe():
         speak("Good Afternoon Gautam! Go for your workout")
     else: 
         speak("Good Evening Gautam!")
-    speak("I am Kurama, Your Destop Voice assistant. ")
+    #speak("I am Kurama, Your Desktop Voice assistant. ")
    
 # this function is used to take command from the user
 def takeCommand():
@@ -48,33 +48,47 @@ def takeCommand():
 
 if __name__=="__main__":
     wishMe()
-   
-    # logic for executing tasks based on queries
+    
+    # logic for executing tasks based on queries~
+    query = "hey kurama"
     while True:
-        speak("How may I help You?") 
         query = takeCommand().lower()
-        #logic
-        if 'wikipedia' in query:
-            speak('Searching wikipedia')
-            query = query.replace("wikipedia","")
-            results  = wk.summary(query,sentences =2)
-            speak("According to wikipedia")
-            speak(results)
-        
-        elif 'youtube' in query:
-            wb.open("youtube.com")
+        if "hello" in query:
+            speak("How may I help You?") 
+            query = takeCommand().lower()
+            #logic
+            if 'wikipedia' in query:
+                speak('Searching wikipedia')
+                query = query.replace("wikipedia","")
+                results  = wk.summary(query,sentences =2)
+                speak("According to wikipedia")
+                speak(results)
+            
+            elif 'youtube' in query :
+                query  = query.replace("youtube","")
+                video_id,title = yt.search_vid(query)
+                print(f"playing {title}")
+                wb.open("https://www.youtube.com/watch?v="+video_id)
+            
+            elif 'play' in query:
+                query = query.replace("play","")
+                video_id,title = yt.search_vid(query)
+                print(f"playing {title}")
+                wb.open("https://www.youtube.com/watch?v="+video_id)
 
-        elif 'google' in query:
-            wb.open("google.com")
 
-        elif 'open code' in query:
-            VSpath = "C:\\Users\\gomci\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
-            os.startfile(VSpath)
-        elif 'quit' in query:
-            speak("I AM DYING")
-            break
-        elif 'start stopwatch' in query:
-            Stopwatch.start()
+            elif 'google' in query:
+                wb.open("https://www.youtube.com/watch?v=cRsV7OXIyi0")
+
+            elif 'open code' in query:
+                VSpath = "C:\\Users\\gomci\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+                os.startfile(VSpath)
+
+            elif 'quit' in query:
+                speak("I AM DYING")
+                break
+            elif 'start stopwatch' in query:
+                Stopwatch.start()
 
 
         
