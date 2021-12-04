@@ -4,7 +4,9 @@ In this project , I have implemented a basic Voice Assistant using various modul
 The current functionalities include
 
  1. Searching summary in WIKIPEDIA
- 2. Opening google and youtube
- 3. Opening VSCODE in desktop
- 4. Opening Stopwatch
+ 2. Playing any music
+ 3. Searching any video in youtube
+ 4. Google anything
+ 5. Opening VSCODE in desktop
+ 6. Opening Stopwatch
  
