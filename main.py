@@ -8,74 +8,80 @@ import os
 import Stopwatch
 
 engine = pyttsx3.init('sapi5')  # sapi is a speech api by microsoft
-voices = engine.getProperty('voices') # gets the voices in which our computer will speak
-engine.setProperty('voice',voices[1].id)
+# gets the voices in which our computer will speak
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
 
-def speak(audio): #this function is used to speak "audio"
+
+def speak(audio):  # this function is used to speak "audio"
     engine.say(audio)
     engine.runAndWait()
 
 # this function is used to wish a person
+
+
 def wishMe():
-    hour  = int(datetime.datetime.now().hour)
-    if hour >=0  and hour<12:
+    hour = int(datetime.datetime.now().hour)
+    if hour >= 0 and hour < 12:
         speak("Good Morning Gautam! CARPEDIEM")
-    elif hour>=12 and hour<18:
+    elif hour >= 12 and hour < 18:
         speak("Good Afternoon Gautam! Go for your workout")
-    else: 
+    else:
         speak("Good Evening Gautam!")
     #speak("I am Kurama, Your Desktop Voice assistant. ")
-   
+
 # this function is used to take command from the user
+
+
 def takeCommand():
-    #It takes microphone input from user and returns string output
+    # It takes microphone input from user and returns string output
     r = sr.Recognizer()
-    with sr.Microphone() as source :  
+    with sr.Microphone() as source:
         print("Listening Sir...")
-        r.pause_treshold =1
+        r.pause_treshold = 1
         audio = r.listen(source)
     try:
-        print("Recognizing") 
-        query = r.recognize_google(audio,language ="en-in")
+        print("Recognizing")
+        query = r.recognize_google(audio, language="en-in")
         print(f"User said: {query}\n")
 
-    except Exception as e: 
+    except Exception as e:
         print(e)
         print("Say that again please......")
         return "None"
 
     return query
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     wishMe()
-    
+
     # logic for executing tasks based on queries~
     query = "hey kurama"
     while True:
         query = takeCommand().lower()
         if "hello" in query:
-            speak("How may I help You?") 
+            speak("How may I help You?")
             query = takeCommand().lower()
-            #logic
+            # logic
             if 'wikipedia' in query:
                 speak('Searching wikipedia')
-                query = query.replace("wikipedia","")
-                results  = wk.summary(query,sentences =2)
+                query = query.replace("wikipedia", "")
+                results = wk.summary(query, sentences=2)
                 speak("According to wikipedia")
                 speak(results)
-            
-            elif 'youtube' in query :
-                query  = query.replace("youtube","")
-                video_id,title = yt.search_vid(query)
-                print(f"playing {title}")
-                wb.open("https://www.youtube.com/watch?v="+video_id)
-            
-            elif 'play' in query:
-                query = query.replace("play","")
-                video_id,title = yt.search_vid(query)
+
+            elif 'youtube' in query:
+                query = query.replace("youtube", "")
+                video_id, title = yt.search_vid(query)
                 print(f"playing {title}")
                 wb.open("https://www.youtube.com/watch?v="+video_id)
 
+            elif 'play' in query:
+                query = query.replace("play", "")
+                video_id, title = yt.search_vid(query)
+                print(f"playing {title}")
+                wb.open("https://www.youtube.com/watch?v="+video_id)
 
             elif 'google' in query:
                 wb.open("https://www.youtube.com/watch?v=cRsV7OXIyi0")
@@ -89,8 +95,3 @@ if __name__=="__main__":
                 break
             elif 'start stopwatch' in query:
                 Stopwatch.start()
-
-
-        
-            
-
